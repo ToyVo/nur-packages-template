@@ -1,14 +1,40 @@
 {
   description = "My personal NUR repository";
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-  outputs = { self, nixpkgs }:
+
+  inputs = {
+    corepkgs = {
+      url = "github:ekala-project/corepkgs";
+      flake = false;
+    };
+    nix-lib.url = "github:ekala-project/nix-lib";
+    stdenv = {
+      url = "github:ekala-project/stdenv";
+      flake = false;
+    };
+  };
+
+  outputs =
+    inputs@{ self, corepkgs, ... }:
     let
-      forAllSystems = nixpkgs.lib.genAttrs nixpkgs.lib.systems.flakeExposed;
+      inherit (inputs.nix-lib) lib;
+
+      systems = import "${inputs.stdenv}/systems" {
+        inherit lib;
+      };
+
+      forAllSystems = lib.genAttrs systems.flakeExposed;
     in
     {
-      legacyPackages = forAllSystems (system: import ./default.nix {
-        pkgs = import nixpkgs { inherit system; };
-      });
-      packages = forAllSystems (system: nixpkgs.lib.filterAttrs (_: v: nixpkgs.lib.isDerivation v) self.legacyPackages.${system});
+      legacyPackages = forAllSystems (
+        system:
+        import ./default.nix {
+          pkgs = import corepkgs {
+            inherit system;
+          };
+        }
+      );
+      packages = forAllSystems (
+        system: lib.filterAttrs (_: v: lib.isDerivation v) self.legacyPackages.${system}
+      );
     };
 }

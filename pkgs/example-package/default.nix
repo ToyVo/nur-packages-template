@@ -1,9 +1,9 @@
 { stdenv }:
 
 stdenv.mkDerivation rec {
-  name = "example-package-${version}";
+  pname = "example-package";
   version = "1.0";
   src = ./.;
-  buildPhase = "echo echo Hello World > example";
-  installPhase = "install -Dm755 example $out";
+  buildPhase = "echo '#!/bin/sh\necho Hello World' > example";
+  installPhase = "install -Dm755 example $out/bin/${pname}";
 }

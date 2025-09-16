@@ -1,24 +1,57 @@
 {
   "nodes": {
-    "nixpkgs": {
+    "corepkgs": {
+      "flake": false,
       "locked": {
-        "lastModified": 1712449641,
-        "narHash": "sha256-U9DDWMexN6o5Td2DznEgguh8TRIUnIl9levmit43GcI=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "600b15aea1b36eeb43833a50b0e96579147099ff",
+        "lastModified": 1730509040,
+        "narHash": "sha256-8pImoa3C2s5vHwgZcloyxeq3BZm6wBPJxEaB0v/FKR4=",
+        "owner": "ekala-project",
+        "repo": "corepkgs",
+        "rev": "537e58ee570f1706387e08b413a0631c551d6380",
         "type": "github"
       },
       "original": {
-        "owner": "NixOS",
-        "ref": "nixpkgs-unstable",
-        "repo": "nixpkgs",
+        "owner": "ekala-project",
+        "repo": "corepkgs",
+        "type": "github"
+      }
+    },
+    "nix-lib": {
+      "locked": {
+        "lastModified": 1725932135,
+        "narHash": "sha256-lOth3aX2oK1KGNBIKJDDrVSW7DqZHkyT+FvjZ9r7bOk=",
+        "owner": "ekala-project",
+        "repo": "nix-lib",
+        "rev": "f3baad9fc4df31152e6150712204bb391214fdd7",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ekala-project",
+        "repo": "nix-lib",
         "type": "github"
       }
     },
     "root": {
       "inputs": {
-        "nixpkgs": "nixpkgs"
+        "corepkgs": "corepkgs",
+        "nix-lib": "nix-lib",
+        "stdenv": "stdenv"
+      }
+    },
+    "stdenv": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1728177252,
+        "narHash": "sha256-4tZ0/uoqHyNBdSXk5NQsFp4AGVEZ/mZ2f2dtXaHAo2U=",
+        "owner": "ekala-project",
+        "repo": "stdenv",
+        "rev": "8593af2030421f4668b7aefe38c9aecf63c6effa",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ekala-project",
+        "repo": "stdenv",
+        "type": "github"
       }
     }
   },
